@@ -13,7 +13,7 @@ describe "Integration specifications" do
     it "raises error with invalid table" do
       lambda{ @iso_db.prepare "SELECT * FROM foo" }.should raise_error( ::Amalgalite::SQLite3::Error )
     end
-    
+
     it "raises error with invalid column" do
       lambda{ @iso_db.prepare "SELECT foo FROM country" }.should raise_error( ::Amalgalite::SQLite3::Error )
     end
@@ -21,11 +21,11 @@ describe "Integration specifications" do
 
   describe " - default types conversion" do
 
-    { 
-      "datetime"  => { :value => DateTime.now, :klass => DateTime }, 
+    {
+      "datetime"  => { :value => DateTime.now, :klass => DateTime },
       "timestamp" => { :value => Time.now, :klass => Time   } ,
       "date"      => { :value => Date.today, :klass => Date },
-      "integer"   => { :value => 42, :klass => Integer } ,
+      "integer"   => { :value => 42, :klass => Integer },
       "double"    => { :value => 3.14, :klass => Float },
       "varchar"   => { :value => "foobarbaz", :klass => String },
       "boolean"   => { :value => true, :klass => TrueClass },
@@ -36,7 +36,7 @@ describe "Integration specifications" do
         db.execute "CREATE TABLE t( c #{sql_type} )"
         db.execute "insert into t (c) values ( ? )", ruby_info[:value]
         rows = db.execute "select * from t"
-        rows.first['c'].class.should eql(ruby_info[:klass])
+        rows.first['c'].should be_kind_of(ruby_info[:klass])
 
         if [ DateTime, Time ].include?( ruby_info[:klass] ) then
           rows.first['c'].strftime("%Y-%m-%d %H:%M:%S").should eql(ruby_info[:value].strftime("%Y-%m-%d %H:%M:%S"))
@@ -49,7 +49,7 @@ describe "Integration specifications" do
   end
 
   describe " - storage type conversion" do
-    { 
+    {
       "datetime"  => { :value => DateTime.now, :result => DateTime.now.strftime("%Y-%m-%dT%H:%M:%S%Z") } ,
       "timestamp" => { :value => Time.now,     :result => Time.now.to_s },
       "date"      => { :value => Date.today,   :result => Date.today.to_s },
@@ -72,7 +72,7 @@ describe "Integration specifications" do
   end
 
   describe " - text type conversion" do
-    { 
+    {
       "datetime"  => { :value => DateTime.now, :result => DateTime.now.strftime("%Y-%m-%dT%H:%M:%S%Z") } ,
       "timestamp" => { :value => Time.now,     :result => Time.now.to_s },
       "date"      => { :value => Date.today,   :result => Date.today.to_s },
@@ -94,4 +94,3 @@ describe "Integration specifications" do
     end
   end
 end
-

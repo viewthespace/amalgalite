@@ -18,5 +18,5 @@ tmp/*
 email.txt
 spec/data/*.db
 *.bundle
-*.lock
 .gem/
+vendor/

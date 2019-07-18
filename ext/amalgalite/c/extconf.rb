@@ -8,14 +8,19 @@ $ruby = ARGV.shift if ARGV[0]
 # make available table and column meta data api
 $CFLAGS += " -DSQLITE_ENABLE_COLUMN_METADATA=1"
 $CFLAGS += " -DSQLITE_ENABLE_DBSTAT_VTAB=1"
+$CFLAGS += " -DSQLITE_ENABLE_DBPAGE_VTAB=1"
 $CFLAGS += " -DSQLITE_ENABLE_FTS3=1"
 $CFLAGS += " -DSQLITE_ENABLE_FTS3_PARENTHESIS=1"
 $CFLAGS += " -DSQLITE_ENABLE_FTS4=1"
 $CFLAGS += " -DSQLITE_ENABLE_FTS5=1"
+$CFLAGS += " -DSQLITE_ENABLE_GEOPOLY=1"
 $CFLAGS += " -DSQLITE_ENABLE_JSON1=1"
+$CFLAGS += " -DSQLITE_ENABLE_MEMORY_MANAGEMENT=1"
+$CFLAGS += " -DSQLITE_ENABLE_PREUPDATE_HOOK=1"
 $CFLAGS += " -DSQLITE_ENABLE_RBU=1"
 $CFLAGS += " -DSQLITE_ENABLE_RTREE=1"
-$CFLAGS += " -DSQLITE_ENABLE_SQLLOG=1"
+$CFLAGS += " -DSQLITE_ENABLE_SESSION=1"
+$CFLAGS += " -DSQLITE_ENABLE_STMTVTAB=1"
 $CFLAGS += " -DSQLITE_ENABLE_STAT4=1"
 $CFLAGS += " -DSQLITE_ENABLE_UNLOCK_NOTIFY=1"
 
@@ -28,8 +33,8 @@ end
 
 # remove the -g flags  if it exists
 %w[ -ggdb\\d* -g\\d* ].each do |debug|
-  $CFLAGS = $CFLAGS.gsub(/#{debug}/,'')
-  RbConfig::MAKEFILE_CONFIG['debugflags'] = RbConfig::MAKEFILE_CONFIG['debugflags'].gsub(/#{debug}/,'')   if RbConfig::MAKEFILE_CONFIG['debugflags']
+  $CFLAGS = $CFLAGS.gsub(/\s#{debug}\b/,'')
+  RbConfig::MAKEFILE_CONFIG['debugflags'] = RbConfig::MAKEFILE_CONFIG['debugflags'].gsub(/\s#{debug}\b/,'')   if RbConfig::MAKEFILE_CONFIG['debugflags']
 end
 
 ignoreable_warnings = %w[ write-strings ]

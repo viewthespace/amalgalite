@@ -1,5 +1,32 @@
 # Amalgalite Changelog
 
+## Version 1.6.3 - 2019-01-19
+
+* Update to SQLite 3.26.0
+* enable new compile time options
+  * SQLITE_ENABLE_GEOPOLY
+
+## Version 1.6.2 - 2018-11-10
+
+* Update to SQLite 3.25.3
+
+## Version 1.6.1 - 2018-01-02
+
+* Fix bug when using the `json` extension
+
+## Version 1.6.0 - 2017-12-13
+
+* Update to SQLite 3.21.0
+* source id access methods
+  * Amalgalite::SQLite3::Version.compiled_source_id
+  * Amalgalite::SQLite3::Version.runtime_source_id
+* enable new compile time options
+  * SQLITE_ENABLE_DBPAGE_VTAB
+  * SQLITE_ENABLE_MEMORY_MANAGEMENT
+  * SQLITE_ENABLE_PREUPDATE_HOOK
+  * SQLITE_ENABLE_SESSION
+  * SQLITE_ENABLE_STMTVTAB
+
 ## Version 1.5.0 - 2015-12-06
 
 * Update to SQLite 3.9.2
